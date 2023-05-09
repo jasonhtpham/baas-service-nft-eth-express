@@ -7,7 +7,13 @@ import "./Coin.sol";
 
 contract Company {
 
-    address[] founders;
+    struct Founder {
+        address addr;
+        uint256 shares;
+    }
+
+    Founder[] public founders;
+
     string public companyName;
 
     address public sharesAddress;
@@ -22,17 +28,19 @@ contract Company {
         _;
     }
 
-    constructor(string memory _companyName, address[] memory _founders)
-    {
+    constructor(string memory _companyName, Founder[] memory _founders) {
         companyName = _companyName;
-        founders = _founders;
+        for (uint i = 0; i < _founders.length; i++) {
+            Founder memory founder = Founder(_founders[i].addr, _founders[i].shares);
+            founders.push(founder);
+        }
         companyService = msg.sender;
     }
 
     function setup(address _sharesAddress, address _coinsAddress) public onlyCompanyService {
         setShares(_sharesAddress);
         setCoins(_coinsAddress);
-        distributeTokensSetup();
+        distributeSharesSetup();
     }
 
     function setShares(address _sharesAddress) internal {
@@ -47,10 +55,9 @@ contract Company {
         coins = Coin(_coinsAddress);
     }
 
-    function distributeTokensSetup() internal {
-        uint256 sharesAmount = shares.balanceOf(address(this)) / founders.length;
+    function distributeSharesSetup() internal {
         for (uint i = 0; i < founders.length; i++) {
-            shares.transfer(founders[i], sharesAmount);
+            shares.transfer(founders[i].addr, founders[i].shares * (10 ** shares.decimals()));
         }
     }
 

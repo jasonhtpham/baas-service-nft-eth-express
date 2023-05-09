@@ -16,19 +16,25 @@ const CompanyContract = new web3.eth.Contract(getCompanyABI(), { from: signer.ad
 const CoinsContract = new web3.eth.Contract(getCoinsABI(), { from: signer.address });
 const SharesContract = new web3.eth.Contract(getSharesABI(), { from: signer.address });
 
-
 /**
  * @param {Object} payloadData
- * @param {String} payloadData.companyName
- * @param {String} payloadData.sharesName
- * @param {String} payloadData.sharesSymbol
- * @param {Number} payloadData.sharesQuantity
- * @param {Number} payloadData.sharesDecimals
- * @param {String} payloadData.coinsName
- * @param {String} payloadData.coinsSymbol
- * @param {Number} payloadData.coinsQuantity
- * @param {Number} payloadData.coinsDecimals
- * @param {Array<String>} payloadData.founders
+ * @param {String} payloadData.jobID
+ * @param {String} payloadData.datashopServerAddress
+ * @param {Object} payloadData.dataFileURL
+ * @param {String} payloadData.dataFileURL.url
+ * @param {Object} payloadData.dataFileURL.json
+ * @param {String} payloadData.dataFileURL.json.companyName
+ * @param {String} payloadData.dataFileURL.json.sharesName
+ * @param {String} payloadData.dataFileURL.json.sharesSymbol
+ * @param {Number} payloadData.dataFileURL.json.sharesQuantity
+ * @param {Number} payloadData.dataFileURL.json.sharesDecimals
+ * @param {String} payloadData.dataFileURL.json.coinsName
+ * @param {String} payloadData.dataFileURL.json.coinsSymbol
+ * @param {Number} payloadData.dataFileURL.json.coinsQuantity
+ * @param {Number} payloadData.dataFileURL.json.coinsDecimals
+ * @param {Array<Object>} payloadData.dataFileURL.json.founders
+ * @param {String} payloadData.dataFileURL.json.founders.addr
+ * @param {Number} payloadData.dataFileURL.json.founders.shares
  * @param {Function} callback
  */
 const createCompany = (payloadData, callback) => {

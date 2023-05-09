@@ -31,7 +31,12 @@ const createCompanyRoute = {
                             coinsSymbol: Joi.string().required(),
                             coinsQuantity: Joi.number().integer().required(),
                             coinsDecimals: Joi.number().integer().required(),
-                            founders: Joi.array().items(Joi.string()).required()
+                            founders: Joi.array().items(Joi.object(
+                                {
+                                    addr: Joi.string().required(),
+                                    shares: Joi.number().integer().required()
+                                }
+                            )).required()
                         }
 					).required(),
 				}),
