@@ -1,0 +1,39 @@
+{
+	"name": "baas-service-sepoliacounter",
+	"version": "1.0.0",
+	"description": "a nodejs express sepolia counter service for BAAS",
+	"type": "module",
+	"main": "server.js",
+	"scripts": {
+		"start": "node src/entry.js",
+		"startWithNodemon": "nodemon --exec babel-node src/entry.js"
+	},
+	"keywords": [
+		"Nodejs",
+		"Express",
+		"Sepolia",
+		"Service",
+		"BAAS"
+	],
+	"author": "Paul Jose",
+	"license": "MIT",
+	"dependencies": {
+		"@hapi/boom": "^10.0.0",
+		"@hapi/hapi": "^21.1.0",
+		"@hapi/inert": "^7.0.0",
+		"@hapi/vision": "^7.0.0",
+		"async": "^3.2.4",
+		"axios": "^1.2.1",
+		"cors": "^2.8.5",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.1",
+		"handlebars": "^4.7.7",
+		"hapi-swagger": "^15.0.0",
+		"http-errors": "~1.6.3",
+		"joi": "^17.7.0",
+		"log4js": "^6.7.1",
+		"mongoose": "^6.0.12",
+		"path": "^0.12.7",
+		"web3": "^1.9.0"
+	}
+}
