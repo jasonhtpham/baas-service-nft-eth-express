@@ -61,6 +61,27 @@ contract Company {
         }
     }
 
+    function _founderExists(Founder memory founderToAdd) internal view returns(int) {
+        int atIndex = -1;
+        for (uint i = 0; i < founders.length; i++) {
+            if (founderToAdd.addr == founders[i].addr) {
+                atIndex = int(i);
+            }
+        }
+        return atIndex;
+    }
+
+    function distributeRemainShares(Founder memory founderToAdd) public onlyCompanyService {
+        int i = _founderExists(founderToAdd);
+        if (i > -1) {
+            shares.transfer(founders[uint(i)].addr, founders[uint(i)].shares * (10 ** shares.decimals()));
+            return;
+        }
+        Founder memory founder = Founder(founderToAdd.addr, founderToAdd.shares);
+        founders.push(founder);
+        shares.transfer(founderToAdd.addr, founderToAdd.shares * (10 ** shares.decimals()));
+    }
+
     function getTotalShares() public view returns(uint256) {
         return shares.totalSupply();
     }
