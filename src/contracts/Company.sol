@@ -111,7 +111,13 @@ contract Company {
         return coins.totalSupply();
     }
 
-    function getNumberOfFounders() public view returns (uint256) {
-        return founders.length;
+    function getFounders() public view returns (Founder[] memory) {
+        Founder[] memory founderArray = new Founder[](founders.length);
+
+        for (uint i = 0; i < founders.length; i++) {
+            founderArray[i] = founders[i];
+        }
+
+        return founderArray;
     }
 }

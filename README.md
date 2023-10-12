@@ -1,4 +1,5 @@
 # Baas-service-sepoliaCompany
+
 This is a Node Express application that serves as a company service. This service provides a route to deploy a company given certain parameters to the Sepolia TestNet.
 
 ## Other BaaS services we offer.
@@ -62,7 +63,9 @@ $ npm -v
 ```
 
 ## Setup Service
+
 This is the Sepolia Counter service. There are two routes available through this service. These are:
+
 ```
 1. /api/demo/increase_counter
 
@@ -70,7 +73,9 @@ This is the Sepolia Counter service. There are two routes available through this
 ```
 
 To run the service, simply follow these steps:
+
 - Step1: Clone this repository
+
 ```
 $ git clone https://github.com/deakin-launchpad/baas-service-sepoliaCounter
 
@@ -151,13 +156,13 @@ The current version of your application would be running on **http://localhost:8
 
 ## Further Documentation
 
-This service uses the **Sepolia testnet**. 
+This service uses the **Sepolia testnet**.
 
 We are currently using **web3** and **Infura** to interact with the contract. You need to have an account with Infura if you are using the same.
 
 In the .env file, insert your Infura API key at the end of the **SEPOLIA_RPC** value. Example: **wss://sepolia.infura.io/ws/v3/INFURA_API_KEY**
 
-We are using the **websocket secure (wss)** protocol to connect instead of https due to some connection issues that arise when using https.  
+We are using the **websocket secure (wss)** protocol to connect instead of https due to some connection issues that arise when using https.
 
 Since the service needs an account to interact with the contract, create an Ethereum account and retrieve the private key for that account. You will need to input this key in the .env file for **PRIVATE_KEY**.
 
@@ -168,8 +173,6 @@ We used **MetaMask** as our wallet to interact with the contract. More details a
 Once MetaMask is setup, you can change the environment on the Remix IDE to injected provider and use MetaMask.
 
 We used solidity compiler version **0.8.17** and pragma solidity **^0.8.0** for our development of the contract.
-
-
 
 Within the source code of this service, there are files called Company.sol, Share.sol, and Coin.sol within src/contracts folder which contain the solidity code for the contracts. The ABIs and ByteCodes for these contracts which are required to deploy and interact with the methods on the contract are within the ABI and ByteCode folders respectively within the src/contracts folder.
 
@@ -190,6 +193,7 @@ Next, the signer is initiated using the private key for the account we created e
 The createCompany method within the createCompanyController is what does the actual company, coins, and shares creation and distribution.
 
 The payload object must contain the following fields:
+
 ```
 {
 	companyName: String,
@@ -206,6 +210,7 @@ The payload object must contain the following fields:
 ```
 
 This service will return the following fields post completion:
+
 ```
 {
 	companyContractAddress: String,
@@ -215,7 +220,9 @@ This service will return the following fields post completion:
 ```
 
 ### Example
+
 #### Input
+
 ```
 {
 	"companyName": "TestCompany",
@@ -235,12 +242,19 @@ This service will return the following fields post completion:
 ```
 
 #### Output
+
 ```
 {
 	companyContractAddress: "0xD27C481EC1532Be11Fa9Ebd70C2Cdd18377a4d4a",
 	sharesContractAddress: "0xCea4e77fE9174688dFc9cbB619325e3cC8eA9Bdd",
 	coinsContractAddress: "0x6b85B91C7C9A4836AB60799043c5D1A721D98b43"
 }
+```
+
+#### Remix test founders tuple
+
+```
+[["0x5b637ccCf5A0c3B79f1347993f0f489a7fD40AF1",50],["0x7f7734A5CF085896a7682ff8F65E397ECD1b2B59",30]]
 ```
 
 **Refer to the source code of this repository for further reference on how to create a service to be used with the BAAS platform.**

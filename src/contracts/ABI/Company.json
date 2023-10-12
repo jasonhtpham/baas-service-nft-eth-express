@@ -104,12 +104,24 @@
 	},
 	{
 		"inputs": [],
-		"name": "getNumberOfFounders",
+		"name": "getFounders",
 		"outputs": [
 			{
-				"internalType": "uint256",
+				"components": [
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "shares",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Company.Founder[]",
 				"name": "",
-				"type": "uint256"
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
