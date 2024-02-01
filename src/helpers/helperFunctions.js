@@ -14,22 +14,24 @@ const __dirname = path.dirname(__filename);
  * @returns {String} fileContents
  */
 const readFile = (filePath) => {
-    const asboluteFilePath = path.join(__dirname, filePath);
-    const fileContents = fs.readFileSync(asboluteFilePath, 'utf-8');
-    return fileContents;
+	const asboluteFilePath = path.join(__dirname, filePath);
+	const fileContents = fs.readFileSync(asboluteFilePath, 'utf-8');
+	return fileContents;
 }
 
 // Load ABI and ByteCode
-const sharesABI = require('../contracts/ABI/Share.json'); // Shares ABI
+const sharesABI = readFile('../contracts/ABI/Share.json'); // Shares ABI
 const sharesBin = readFile('../contracts/ByteCode/Share.bin'); // Shares ByteCode
-const coinsABI = require('../contracts/ABI/Coin.json'); // Coins ABI
+
+const coinsABI = readFile('../contracts/ABI/Coin.json'); // Coins ABI
 const coinsBin = readFile('../contracts/ByteCode/Coin.bin'); // Coins ByteCode
-const companyABI = require('../contracts/ABI/Company.json'); // Company ABI
+
+const companyABI = readFile('../contracts/ABI/Company.json'); // Company ABI
 const companyBin = readFile('../contracts/ByteCode/Company.bin'); // Company ByteCode
 
 // Geters for ABI and ByteCode
 const getSharesABI = () => {
-	return sharesABI;
+	return JSON.parse(sharesABI);
 };
 
 const getSharesBin = () => {
@@ -37,7 +39,7 @@ const getSharesBin = () => {
 };
 
 const getCoinsABI = () => {
-	return coinsABI;
+	return JSON.parse(coinsABI);
 };
 
 const getCoinsBin = () => {
@@ -45,7 +47,7 @@ const getCoinsBin = () => {
 };
 
 const getCompanyABI = () => {
-	return companyABI;
+	return JSON.parse(companyABI);
 };
 
 const getCompanyBin = () => {

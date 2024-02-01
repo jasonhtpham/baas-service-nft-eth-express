@@ -218,19 +218,32 @@ This service will return the following fields post completion:
 #### Input
 ```
 {
-	"companyName": "TestCompany",
-	"sharesName": "TestShares",
-	"sharesSymbol": "TSH",
-	"sharesQuantity": 100,
-	"sharesDecimals": 18,
-	"coinsName": "TestCoins",
-	"coinsSymbol": "TCO",
-	"coinsQuantity": 100,
-	"coinsDecimals": 18,
-	"founders": [
-		"0x5b637ccCf5A0c3B79f1347993f0f489a7fD40AF1",
-		"0x7f7734A5CF085896a7682ff8F65E397ECD1b2B59"
-	]
+  "jobID": "string",
+  "datashopServerAddress": "string",
+  "dataFileURL": {
+    "url": "string",
+    "json": {
+      "companyName": "TestCompany",
+      "sharesName": "TestShares",
+      "sharesSymbol": "TSH",
+      "sharesQuantity": 100,
+      "sharesDecimals": 18,
+      "coinsName": "TestCoins",
+      "coinsSymbol": "TCO",
+      "coinsQuantity": 100,
+      "coinsDecimals": 18,
+      "founders": [
+        {
+          "addr": "0x5b637ccCf5A0c3B79f1347993f0f489a7fD40AF1",
+          "shares": 50
+        },
+        {
+          "addr": "0x7f7734A5CF085896a7682ff8F65E397ECD1b2B59",
+          "shares": 20
+        }
+      ]
+    }
+  }
 }
 ```
 

@@ -22,22 +22,22 @@ const createCompanyRoute = {
 					url: Joi.any(),
 					json: Joi.object(
 						{
-                            companyName: Joi.string().required(),
-                            sharesName: Joi.string().required(),
-                            sharesSymbol: Joi.string().required(),
-                            sharesQuantity: Joi.number().integer().required(),
-                            sharesDecimals: Joi.number().integer().required(),
-                            coinsName: Joi.string().required(),
-                            coinsSymbol: Joi.string().required(),
-                            coinsQuantity: Joi.number().integer().required(),
-                            coinsDecimals: Joi.number().integer().required(),
-                            founders: Joi.array().items(Joi.object(
-                                {
-                                    addr: Joi.string().required(),
-                                    shares: Joi.number().integer().required()
-                                }
-                            )).required()
-                        }
+							companyName: Joi.string().required(),
+							sharesName: Joi.string().required(),
+							sharesSymbol: Joi.string().required(),
+							sharesQuantity: Joi.number().integer().required(),
+							sharesDecimals: Joi.number().integer().required(),
+							coinsName: Joi.string().required(),
+							coinsSymbol: Joi.string().required(),
+							coinsQuantity: Joi.number().integer().required(),
+							coinsDecimals: Joi.number().integer().required(),
+							founders: Joi.array().items(Joi.object(
+								{
+									addr: Joi.string().required(),
+									shares: Joi.number().integer().required()
+								}
+							)).required()
+						}
 					).required(),
 				}),
 			}).label("Company Model"),

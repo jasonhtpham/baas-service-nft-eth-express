@@ -15,7 +15,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "shares",
+						"name": "sharesAmount",
 						"type": "uint256"
 					}
 				],
@@ -42,19 +42,6 @@
 	},
 	{
 		"inputs": [],
-		"name": "coinsAddress",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "companyName",
 		"outputs": [
 			{
@@ -64,6 +51,31 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "sharesAmount",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Company.Founder",
+				"name": "founderToAdd",
+				"type": "tuple"
+			}
+		],
+		"name": "distributeRemainShares",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -83,8 +95,33 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "shares",
+				"name": "sharesAmount",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getFounders",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "sharesAmount",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Company.Founder[]",
+				"name": "",
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
@@ -119,14 +156,44 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_sharesAddress",
-				"type": "address"
+				"internalType": "string",
+				"name": "_shareName",
+				"type": "string"
 			},
 			{
-				"internalType": "address",
-				"name": "_coinsAddress",
-				"type": "address"
+				"internalType": "string",
+				"name": "_shareSymbol",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_shareQuantity",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "_shareDecimals",
+				"type": "uint8"
+			},
+			{
+				"internalType": "string",
+				"name": "_coinName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_coinSymbol",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_coinQuantity",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "_coinDecimals",
+				"type": "uint8"
 			}
 		],
 		"name": "setup",
@@ -140,19 +207,6 @@
 		"outputs": [
 			{
 				"internalType": "contract Share",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "sharesAddress",
-		"outputs": [
-			{
-				"internalType": "address",
 				"name": "",
 				"type": "address"
 			}
