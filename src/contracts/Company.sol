@@ -38,6 +38,8 @@ contract Company {
 
     address immutable companyService;
 
+    event ShareCoinIssued(address, address);
+
     modifier onlyCompanyService() {
         require(msg.sender == companyService);
         _;
@@ -68,6 +70,7 @@ contract Company {
         shares = new Share(address(this), _shareName, _shareSymbol, _shareQuantity, _shareDecimals, address(this));
         coins = new Coin(address(this), _coinName, _coinSymbol, _coinQuantity, _coinDecimals);
         distributeSharesSetup();
+        emit ShareCoinIssued(address(shares), address(coins));
     }
 
     function distributeSharesSetup() internal {

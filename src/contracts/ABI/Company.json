@@ -2,6 +2,79 @@
 	{
 		"inputs": [
 			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "sharesAmount",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Company.Founder",
+				"name": "founderToAdd",
+				"type": "tuple"
+			}
+		],
+		"name": "distributeRemainShares",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_shareName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_shareSymbol",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_shareQuantity",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "_shareDecimals",
+				"type": "uint8"
+			},
+			{
+				"internalType": "string",
+				"name": "_coinName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_coinSymbol",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_coinQuantity",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint8",
+				"name": "_coinDecimals",
+				"type": "uint8"
+			}
+		],
+		"name": "setup",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "string",
 				"name": "_companyName",
 				"type": "string"
@@ -28,6 +101,25 @@
 		"type": "constructor"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "ShareCoinIssued",
+		"type": "event"
+	},
+	{
 		"inputs": [],
 		"name": "coins",
 		"outputs": [
@@ -51,31 +143,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"components": [
-					{
-						"internalType": "address",
-						"name": "addr",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "sharesAmount",
-						"type": "uint256"
-					}
-				],
-				"internalType": "struct Company.Founder",
-				"name": "founderToAdd",
-				"type": "tuple"
-			}
-		],
-		"name": "distributeRemainShares",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -151,54 +218,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_shareName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_shareSymbol",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_shareQuantity",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint8",
-				"name": "_shareDecimals",
-				"type": "uint8"
-			},
-			{
-				"internalType": "string",
-				"name": "_coinName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_coinSymbol",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_coinQuantity",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint8",
-				"name": "_coinDecimals",
-				"type": "uint8"
-			}
-		],
-		"name": "setup",
-		"outputs": [],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

@@ -2,7 +2,7 @@ import "dotenv/config";
 import async from "async";
 import UniversalFunctions from "../../utils/universalFunctions.js";
 const ERROR = UniversalFunctions.CONFIG.APP_CONSTANTS.STATUS_MSG.ERROR;
-import { getSharesABI, getSharesBin, getCoinsABI, getCoinsBin, getCompanyABI, getCompanyBin, respondToServer } from "../../helpers/helperFunctions.js";
+import { getCompanyABI, getCompanyBin, respondToServer } from "../../helpers/helperFunctions.js";
 import Web3 from 'web3'; // Ethereum Interaction facilitator
 
 // Setup
@@ -13,8 +13,6 @@ web3.eth.accounts.wallet.add(signer); // Add signer to wallet
 
 // Get contracts
 const CompanyContract = new web3.eth.Contract(getCompanyABI(), { from: signer.address });
-const CoinsContract = new web3.eth.Contract(getCoinsABI(), { from: signer.address });
-const SharesContract = new web3.eth.Contract(getSharesABI(), { from: signer.address });
 
 
 
@@ -83,7 +81,6 @@ const createCompany = (payloadData, callback) => {
 
                 companyContractAddress = companyContractInstance.options.address;
                 _companyContractInstance = companyContractInstance;
-                console.log("Company Contract Address: ", companyContractAddress);
             } catch (err) {
                 console.log(err);
                 cb(ERROR.APP_ERROR);
@@ -107,6 +104,8 @@ const createCompany = (payloadData, callback) => {
                     })
                     .once("receipt", (receipt) => {
                         console.log(`Company setup transaction mined!`);
+                        sharesContractAddress = receipt.events.ShareCoinIssued.returnValues["0"];
+                        coinsContractAddress = receipt.events.ShareCoinIssued.returnValues["1"];
                     });
             } catch (err) {
                 console.log(err);
@@ -122,6 +121,7 @@ const createCompany = (payloadData, callback) => {
         } else {
             // respond to server with success
             returnData = { companyContractAddress, sharesContractAddress, coinsContractAddress };
+            console.log(returnData);
         }
         respondToServer(payloadData, returnData, (err, result) => {
             if (err) {
