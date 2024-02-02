@@ -148,6 +148,31 @@
 	{
 		"inputs": [
 			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "addr",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "shares",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct Company.Founder",
+				"name": "founderToAdd",
+				"type": "tuple"
+			}
+		],
+		"name": "distributeRemainShares",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
