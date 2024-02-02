@@ -2,25 +2,49 @@
 
 pragma solidity ^0.8.0;
 
-import "./Share.sol";
-import "./Coin.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract Coin is ERC20, Ownable {
+    constructor(
+        address initialOwner,
+        string memory _tokenName,
+        string memory _tokenSymbol,
+        uint256 _quantity,
+        uint8 _decimals
+    ) ERC20(_tokenName, _tokenSymbol) Ownable(initialOwner) {
+        _mint(address(this), _quantity * (10 ** uint256(_decimals)));
+    }
+}
+
+contract Share is ERC20, Ownable {
+    constructor(
+        address initialOwner,
+        string memory _tokenName,
+        string memory _tokenSymbol,
+        uint256 _quantity,
+        uint8 _decimals,
+        address to
+    ) ERC20(_tokenName, _tokenSymbol) Ownable(initialOwner) {
+        _mint(to, _quantity * (10 ** uint256(_decimals)));
+    }
+}
 
 contract Company {
     struct Founder {
         address addr;
-        uint256 shares;
+        uint256 sharesAmount;
     }
 
     Founder[] public founders;
-
     string public companyName;
 
-    address private sharesAddress;
     Share public shares;
-    address private coinsAddress;
     Coin public coins;
 
-    address companyService;
+    address immutable companyService;
+
+    event ShareCoinIssued(address, address);
 
     modifier onlyCompanyService() {
         require(msg.sender == companyService);
@@ -32,7 +56,7 @@ contract Company {
         for (uint i = 0; i < _founders.length; i++) {
             Founder memory founder = Founder(
                 _founders[i].addr,
-                _founders[i].shares
+                _founders[i].sharesAmount
             );
             founders.push(founder);
         }
@@ -40,31 +64,39 @@ contract Company {
     }
 
     function setup(
-        address _sharesAddress,
-        address _coinsAddress
+        string memory _shareName,
+        string memory _shareSymbol,
+        uint256 _shareQuantity,
+        uint8 _shareDecimals,
+        string memory _coinName,
+        string memory _coinSymbol,
+        uint256 _coinQuantity,
+        uint8 _coinDecimals
     ) public onlyCompanyService {
-        setShares(_sharesAddress);
-        setCoins(_coinsAddress);
+        shares = new Share(
+            address(this),
+            _shareName,
+            _shareSymbol,
+            _shareQuantity,
+            _shareDecimals,
+            address(this)
+        );
+        coins = new Coin(
+            address(this),
+            _coinName,
+            _coinSymbol,
+            _coinQuantity,
+            _coinDecimals
+        );
         distributeSharesSetup();
-    }
-
-    function setShares(address _sharesAddress) internal {
-        require(sharesAddress == 0x0000000000000000000000000000000000000000);
-        sharesAddress = _sharesAddress;
-        shares = Share(_sharesAddress);
-    }
-
-    function setCoins(address _coinsAddress) internal {
-        require(coinsAddress == 0x0000000000000000000000000000000000000000);
-        coinsAddress = _coinsAddress;
-        coins = Coin(_coinsAddress);
+        emit ShareCoinIssued(address(shares), address(coins));
     }
 
     function distributeSharesSetup() internal {
         for (uint i = 0; i < founders.length; i++) {
             shares.transfer(
                 founders[i].addr,
-                founders[i].shares * (10 ** shares.decimals())
+                founders[i].sharesAmount * (10 ** shares.decimals())
             );
         }
     }
@@ -88,18 +120,18 @@ contract Company {
         if (i > -1) {
             shares.transfer(
                 founders[uint(i)].addr,
-                founders[uint(i)].shares * (10 ** shares.decimals())
+                founders[uint(i)].sharesAmount * (10 ** shares.decimals())
             );
             return;
         }
         Founder memory founder = Founder(
             founderToAdd.addr,
-            founderToAdd.shares
+            founderToAdd.sharesAmount
         );
         founders.push(founder);
         shares.transfer(
             founderToAdd.addr,
-            founderToAdd.shares * (10 ** shares.decimals())
+            founderToAdd.sharesAmount * (10 ** shares.decimals())
         );
     }
 
