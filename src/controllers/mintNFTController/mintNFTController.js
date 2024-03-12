@@ -79,20 +79,19 @@ const mintNftIPFS = (payloadData, callback) => {
         if (err || !nftContractAddress) {
             // respond to server with error
             returnData = null;
-            return callback(err)
+            // return callback(err)
         } else {
             // respond to server with success
             returnData = { nftContractAddress };
-            console.log(returnData);
-            callback(null, { returnData })
+            // callback(null, { returnData })
         }
-        // respondToServer(payloadData, returnData, (err, result) => {
-        //     if (err) {
-        //         console.log(err);
-        //     } else {
-        //         console.log(result);
-        //     }
-        // });
+        respondToServer(payloadData, returnData, (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result);
+            }
+        });
 
     });
 };
