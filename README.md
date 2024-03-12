@@ -1,6 +1,6 @@
-# Baas-service-sepoliaCompany
+# Baas-service-sepoliaNFT
 
-This is a Node Express application that serves as a company service. This service provides a route to deploy a company given certain parameters to the Sepolia TestNet.
+This is a Node Express application that serves as a nft service. This service provides a route to deploy a nft given certain parameters to the Sepolia TestNet.
 
 ## Other BaaS services we offer.
 
@@ -12,7 +12,7 @@ There are also other baas services that we have developed. These include:
 
 - [Voting](https://github.com/deakin-launchpad/baas-service-createVoting)
 
-- [Company](https://github.com/deakin-launchpad/baas-service-createcompany)
+- [NFT](https://github.com/deakin-launchpad/baas-service-nft-algo)
 
 - [Sepolia Counter](https://github.com/deakin-launchpad/baas-service-sepoliaCounter)
 
@@ -174,7 +174,7 @@ Once MetaMask is setup, you can change the environment on the Remix IDE to injec
 
 We used solidity compiler version **0.8.17** and pragma solidity **^0.8.0** for our development of the contract.
 
-Within the source code of this service, there are files called Company.sol, Share.sol, and Coin.sol within src/contracts folder which contain the solidity code for the contracts. The ABIs and ByteCodes for these contracts which are required to deploy and interact with the methods on the contract are within the ABI and ByteCode folders respectively within the src/contracts folder.
+Within the source code of this service, there are files called NFT.sol within src/contracts folder which contain the solidity code for the contracts. The ABIs and ByteCodes for these contracts which are required to deploy and interact with the methods on the contract are within the ABI and ByteCode folders respectively within the src/contracts folder.
 
 The setup bit at the start of the controller is the most important part of the service. If this fails, the service will not work as expected.
 
@@ -190,22 +190,18 @@ First, the provider is initiated as a web3 websocketprovider using the Sepolia I
 
 Next, the signer is initiated using the private key for the account we created earlier. This is how the contract method call transactions are signed.
 
-The createCompany method within the createCompanyController is what does the actual company, coins, and shares creation and distribution.
+The createNFT method within the createNFTController is what does the actual nft, coins, and shares creation and distribution.
 
 The payload object must contain the following fields:
 
 ```
 {
-	companyName: String,
-	sharesName: String,
-	sharesSymbol: String,
-	sharesQuantity: Number,
-	sharesDecimals: Number,
-	coinsName: String,
-	coinsSymbol: String,
-	coinsQuantity: Number,
-	coinsDecimals: Number,
-	founders: Array[String]
+	assetName: String,
+	assetUnitName: String,
+	totalSupply: Number,
+	decimals: Number,
+	assetURL: String,
+	receiver: String,
 }
 ```
 
@@ -213,9 +209,7 @@ This service will return the following fields post completion:
 
 ```
 {
-	companyContractAddress: String,
-	sharesContractAddress: String,
-	coinsContractAddress: String
+	nftContractAddress: String,
 }
 ```
 
@@ -230,25 +224,12 @@ This service will return the following fields post completion:
   "dataFileURL": {
     "url": "string",
     "json": {
-      "companyName": "TestCompany",
-      "sharesName": "TestShares",
-      "sharesSymbol": "TSH",
-      "sharesQuantity": 100,
-      "sharesDecimals": 18,
-      "coinsName": "TestCoins",
-      "coinsSymbol": "TCO",
-      "coinsQuantity": 100,
-      "coinsDecimals": 18,
-      "founders": [
-        {
-          "addr": "0x5b637ccCf5A0c3B79f1347993f0f489a7fD40AF1",
-          "shares": 50
-        },
-        {
-          "addr": "0x7f7734A5CF085896a7682ff8F65E397ECD1b2B59",
-          "shares": 20
-        }
-      ]
+      "assetName": "TestNFT",
+      "assetUnitName": "TNT",
+      "totalSupply": "1",
+      "decimals": 0,
+      "assetURL": https://ipfs/,
+      "receiver": "TestC0xD27C481EC1532Be11Fa9Ebd70C2Cdd18377a4d4aoins",
     }
   }
 }
@@ -258,16 +239,8 @@ This service will return the following fields post completion:
 
 ```
 {
-	companyContractAddress: "0xD27C481EC1532Be11Fa9Ebd70C2Cdd18377a4d4a",
-	sharesContractAddress: "0xCea4e77fE9174688dFc9cbB619325e3cC8eA9Bdd",
-	coinsContractAddress: "0x6b85B91C7C9A4836AB60799043c5D1A721D98b43"
+	nftContractAddress: "0xD27C481EC1532Be11Fa9Ebd70C2Cdd18377a4d4a",
 }
-```
-
-#### Remix test founders tuple
-
-```
-[["0x5b637ccCf5A0c3B79f1347993f0f489a7fD40AF1",50],["0x7f7734A5CF085896a7682ff8F65E397ECD1b2B59",30]]
 ```
 
 **Refer to the source code of this repository for further reference on how to create a service to be used with the BAAS platform.**

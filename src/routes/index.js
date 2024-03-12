@@ -1,4 +1,4 @@
-import CreateCompanyRoute from "./createCompanyRoute/createCompanyRoute.js";
+import MintNFTRoute from "./mintNFTRoute/mintNFTRoute.js";
 
-const Routes = [].concat(CreateCompanyRoute);
+const Routes = [].concat(MintNFTRoute);
 export default Routes;

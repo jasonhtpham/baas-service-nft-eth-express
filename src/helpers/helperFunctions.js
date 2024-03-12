@@ -1,6 +1,4 @@
 import axios from "axios";
-import { createRequire } from "module"; // Bring in the ability to create the 'require' method
-const require = createRequire(import.meta.url); // construct the require method
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from "url";
@@ -20,38 +18,16 @@ const readFile = (filePath) => {
 }
 
 // Load ABI and ByteCode
-const sharesABI = readFile('../contracts/ABI/Share.json'); // Shares ABI
-const sharesBin = readFile('../contracts/ByteCode/Share.bin'); // Shares ByteCode
-
-const coinsABI = readFile('../contracts/ABI/Coin.json'); // Coins ABI
-const coinsBin = readFile('../contracts/ByteCode/Coin.bin'); // Coins ByteCode
-
-const companyABI = readFile('../contracts/ABI/Company.json'); // Company ABI
-const companyBin = readFile('../contracts/ByteCode/Company.bin'); // Company ByteCode
+const nftABI = readFile('../contracts/ABI/NFT.json'); // NFT ABI
+const nftBin = readFile('../contracts/ByteCode/NFT.bin'); // NFT ByteCode
 
 // Geters for ABI and ByteCode
-const getSharesABI = () => {
-	return JSON.parse(sharesABI);
+const getNftABI = () => {
+	return JSON.parse(nftABI);
 };
 
-const getSharesBin = () => {
-	return sharesBin;
-};
-
-const getCoinsABI = () => {
-	return JSON.parse(coinsABI);
-};
-
-const getCoinsBin = () => {
-	return coinsBin;
-};
-
-const getCompanyABI = () => {
-	return JSON.parse(companyABI);
-};
-
-const getCompanyBin = () => {
-	return companyBin;
+const getNftBin = () => {
+	return nftBin;
 };
 
 
@@ -88,11 +64,7 @@ const respondToServer = (payloadData, data, callback) => {
 };
 
 export {
-	getSharesABI,
-	getSharesBin,
-	getCoinsABI,
-	getCoinsBin,
-	getCompanyABI,
-	getCompanyBin,
+	getNftABI,
+	getNftBin,
 	respondToServer
 }

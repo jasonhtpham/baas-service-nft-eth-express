@@ -1,3 +1,3 @@
-import createCompanyController from "./createCompanyController/createCompanyController.js";
+import MintNFTController from "./mintNFTController/mintNFTController.js";
 
-export default { createCompanyController };
+export default { MintNFTController };
