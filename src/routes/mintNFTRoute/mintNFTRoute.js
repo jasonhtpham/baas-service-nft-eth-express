@@ -29,7 +29,7 @@ const mintNftIPFS = {
 						assetUnitName: Joi.string().required(),
 						totalSupply: Joi.number().required(),
 						decimals: Joi.number().required(),
-						assetURL: Joi.string().required(),
+						assetURL: Joi.string().optional().allow(""),
 						receiver: Joi.string().required(),
 					}),
 				})
