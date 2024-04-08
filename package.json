@@ -1,7 +1,7 @@
 {
-	"name": "baas-service-eth-nft",
+	"name": "baas-service-eth-nft-express",
 	"version": "1.0.0",
-	"description": "a nodejs express sepolia nft service for BAAS",
+	"description": "a nodejs express sepolia nft-express service for BAAS",
 	"type": "module",
 	"main": "server.js",
 	"scripts": {

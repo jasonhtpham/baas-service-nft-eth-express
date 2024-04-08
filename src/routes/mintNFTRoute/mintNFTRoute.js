@@ -5,7 +5,7 @@ const Config = UniversalFunctions.CONFIG;
 
 const mintNftIPFS = {
 	method: "POST",
-	path: "/api/demo/mintNftIPFS",
+	path: "/api/demo/mintNftExpress",
 	options: {
 		description: "mint a non fungible token using algorand to IPFS",
 		tags: ["api"],
@@ -25,15 +25,11 @@ const mintNftIPFS = {
 				dataFileURL: Joi.object({
 					url: Joi.any(),
 					json: Joi.object({
-						assetName: Joi.string().required(),
-						assetUnitName: Joi.string().required(),
-						totalSupply: Joi.number().required(),
-						decimals: Joi.number().required(),
-						assetURL: Joi.string().optional().allow(""),
 						receiver: Joi.string().required(),
+						url: Joi.string().required(),
 					}),
 				})
-			}).label("Mint NFT IPFS"),
+			}).label("Mint NFT Express"),
 			failAction: UniversalFunctions.failActionFunction,
 		},
 		plugins: {

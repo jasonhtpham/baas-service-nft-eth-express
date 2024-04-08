@@ -2,24 +2,19 @@
 // Compatible with OpenZeppelin Contracts ^5.0.0
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts@5.0.2/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts@5.0.2/token/ERC721/extensions/ERC721Burnable.sol";
+import "@openzeppelin/contracts@5.0.2/access/Ownable.sol";
 
-contract NFT is ERC721, ERC721Burnable, Ownable {
-    string internal baseURI;
+contract MyToken is ERC721, ERC721Burnable, Ownable {
+    uint256 private _nextTokenId;
 
     constructor(
-        address initialOwner,
-        string memory name,
-        string memory unitName,
-        string memory _assetURI
-    ) ERC721(name, unitName) Ownable(initialOwner) {
-        baseURI = _assetURI;
-        _safeMint(initialOwner, 1);
-    }
+        address initialOwner
+    ) ERC721("SChare Token", "SCT") Ownable(initialOwner) {}
 
-    function _baseURI() internal view override returns (string memory) {
-        return baseURI;
+    function safeMint(address to) public onlyOwner {
+        uint256 tokenId = _nextTokenId++;
+        _safeMint(to, tokenId);
     }
 }

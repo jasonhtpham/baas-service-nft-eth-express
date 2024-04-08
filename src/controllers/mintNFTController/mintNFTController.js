@@ -12,7 +12,7 @@ const signer = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATE_KEY); /
 web3.eth.accounts.wallet.add(signer); // Add signer to wallet
 
 // Get contracts
-const NftContract = new web3.eth.Contract(getNftABI(), { from: signer.address });
+const NftContract = new web3.eth.Contract(getNftABI(), process.env.MINTER_ADDRESS);
 
 
 
@@ -23,51 +23,35 @@ const NftContract = new web3.eth.Contract(getNftABI(), { from: signer.address })
  * @param {Object} payloadData.dataFileURL
  * @param {String} payloadData.dataFileURL.url
  * @param {Object} payloadData.dataFileURL.json
- * @param {String} payloadData.dataFileURL.json.assetName
- * @param {String} payloadData.dataFileURL.json.assetUnitName
- * @param {String} payloadData.dataFileURL.json.totalSupply
- * @param {Number} payloadData.dataFileURL.json.decimals
- * @param {Number} payloadData.dataFileURL.json.assetURL
  * @param {String} payloadData.dataFileURL.json.receiver
+ * @param {String} payloadData.dataFileURL.json.url
  * @param {Function} callback
  */
 const mintNftIPFS = (payloadData, callback) => {
-    let nftContractAddress;
+    let txId;
 
     let data = payloadData.dataFileURL.json;
-
-    let assetName = data.assetName;
-    let assetUnitName = data.assetUnitName;
-    let totalSupply = data.totalSupply;
-    let decimals = data.decimals;
-    let assetURL = data.assetURL;
-    let receiver = data.receiver;
-
-    let _nftContractInstance;
+    const receiver = Web3.utils.toChecksumAddress(data.receiver);
+    const url = data.url;
 
     const tasks = {
-        deployNftContract: async (cb) => {
-            console.log("=== DEPLOY COMPANY CONTRACT ===");
+        mintNft: async (cb) => {
+            console.log("=== DEPLOY NFT SMART CONTRACT ===");
             try {
-                const args = [receiver, assetName, assetUnitName, assetURL];
 
-                const nftContractEstimatedGas = await NftContract.deploy({
-                    data: getNftBin(),
-                    arguments: args
-                }).estimateGas();
+                const nftMintingEstimatedGas = await NftContract.methods.safeMint(receiver, url)
+                    .estimateGas({
+                        from: signer.address
+                    });
 
-                const nftContractInstance = await NftContract.deploy({
-                    data: getNftBin(),
-                    arguments: args
-                }).send({
+                await NftContract.methods.safeMint(receiver, url).send({
                     from: signer.address,
-                    gas: nftContractEstimatedGas
+                    gas: nftMintingEstimatedGas
                 }).once("receipt", (receipt) => {
-                    console.log(`NFT contract creation transaction mined!`);
-                });
+                    console.log(`NFT minting transaction mined!`);
+                    txId = receipt.transactionHash;
+                }).on('error', console.error);
 
-                nftContractAddress = nftContractInstance.options.address;
-                _nftContractInstance = nftContractInstance;
             } catch (err) {
                 console.log(err);
                 cb(ERROR.APP_ERROR);
@@ -76,15 +60,14 @@ const mintNftIPFS = (payloadData, callback) => {
     };
     async.series(tasks, (err, _) => {
         let returnData;
-        if (err || !nftContractAddress) {
+        if (err || !txId) {
             // respond to server with error
             returnData = null;
-            // return callback(err)
-        } else {
-            // respond to server with success
-            returnData = { nftContractAddress };
-            // callback(null, { returnData })
+            return callback(err)
         }
+        // respond to server with success
+        returnData = { txId };
+        // callback(null, { returnData })
         respondToServer(payloadData, returnData, (err, result) => {
             if (err) {
                 console.log(err);
