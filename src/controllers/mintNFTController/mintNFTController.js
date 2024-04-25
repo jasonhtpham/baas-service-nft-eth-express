@@ -36,15 +36,15 @@ const mintNftIPFS = (payloadData, callback) => {
 
     const tasks = {
         mintNft: async (cb) => {
-            console.log("=== DEPLOY NFT SMART CONTRACT ===");
+            console.log("=== Mint NFT ===");
             try {
-
-                const nftMintingEstimatedGas = await NftContract.methods.safeMint(receiver, url)
+                const tokenId = new Date().getTime();
+                const nftMintingEstimatedGas = await NftContract.methods.mintWithTokenURI(receiver, tokenId, url)
                     .estimateGas({
                         from: signer.address
                     });
 
-                await NftContract.methods.safeMint(receiver, url).send({
+                await NftContract.methods.mintWithTokenURI(receiver, tokenId, url).send({
                     from: signer.address,
                     gas: nftMintingEstimatedGas
                 }).once("receipt", (receipt) => {

@@ -7,7 +7,7 @@ const mintNftIPFS = {
 	method: "POST",
 	path: "/api/demo/mintNftExpress",
 	options: {
-		description: "mint a non fungible token using algorand to IPFS",
+		description: "mint a non fungible token using sepolia",
 		tags: ["api"],
 		handler: function (request, h) {
 			var payloadData = request.payload;
